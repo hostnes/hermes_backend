@@ -23,7 +23,7 @@ class ProductAdmin(admin.ModelAdmin):
 class ConversationAdmin(admin.ModelAdmin):
     list_display = ['created_at']
     search_fields = ['participants__email']
-    filter_horizontal = ['participants']  # Добавляет удобный выбор участников в админке
+    filter_horizontal = ['participants']
 
 
 # Регистрация модели Message

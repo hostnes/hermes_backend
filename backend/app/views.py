@@ -20,6 +20,7 @@ class UserFilter(filters.FilterSet):
         model = User
         fields = ['email', 'password']
 
+
 # Для пользователей
 class UserListCreateView(generics.ListCreateAPIView):
     filter_backends = (filters.DjangoFilterBackend,)

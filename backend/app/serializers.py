@@ -66,12 +66,18 @@ class SubCategoryUserSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    district = DistrictUserSerializer(required=False, allow_null=True)  # Поле не обязательно
+    district_details = serializers.SerializerMethodField()  # Поле не обязательно
 
     class Meta:
         model = User
-        fields = ['id', 'photo', 'email', 'name', 'description', 'gender', 'phone_number', "password", 'district']
+        fields = ['id', 'photo', 'email', 'name', 'description', 'gender', 'phone_number', "password", 'district', 'district_details', 'district']
 
+    def get_district_details(self, obj):
+        # Проверяем, есть ли связанный объект district
+        if obj.district:
+            # Сериализуем объект district с помощью DistrictUserSerializer
+            return DistrictUserSerializer(obj.district).data
+        return None  # Если district нет, возвращаем None
 
 class MessageSerializer(serializers.ModelSerializer):
     sender = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())  # Use PrimaryKeyRelatedField for sender
